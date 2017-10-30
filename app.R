@@ -32,7 +32,7 @@ ui <- fluidPage(
                            ".shiny-output-error{visibility:hidden;}",
                            ".shiny-output-error:before{visibility:hidden;}"),
                  top = 240,width = "60%",left = "20%",
-                h2("Self Image Collection",align = "center"),
+                h2("你好，我们在收集照片分析不同人的牙齿和牙龈的状况",align = "center"),
                 ######
                 ###p("add your introduction here")
                 ###
