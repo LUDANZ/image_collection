@@ -53,7 +53,7 @@ var Webcam = {
 		jpeg_quality: 90,      // jpeg image quality from 0 (worst) to 100 (best)
 		enable_flash: true,    // enable flash fallback,
 		force_flash: false,    // force flash mode,
-		flip_horiz: false,     // flip image horiz (mirror mode)
+		flip_horiz: true,     // flip image horiz (mirror mode)
 		fps: 30,               // camera frames per second
 		upload_name: 'webcam', // name of file in upload post data
 		constraints: null,     // custom user media constraints,
