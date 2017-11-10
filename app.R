@@ -89,7 +89,7 @@ ui <- fluidPage(
                                 image_format: 'jpeg',
                                 jpeg_quality: 100,
                                 force_flash: false,
-                                flip_horiz: false,
+                                flip_horiz: true,
                                 fps: 45
                                 });
                                 Webcam.attach( '#my_camera' );
