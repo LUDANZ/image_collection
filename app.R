@@ -53,7 +53,7 @@ ui <- fluidPage(
                 div(HTML("<script src=\"webcam.js\"></script>
                           <h5>将您的牙齿牙龈放入以下蓝色框线中，并拍照：</h5>
                           <br>
-                          <center><div id=\"my_camera\" style=\"width:320px; height:240px;\"></div></center>
+                          <center><div id=\"my_camera\" style=\"width:960px; height:720px;\"></div></center>
                           <style>
                           .button {
                             background-color: #555555;
