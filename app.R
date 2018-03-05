@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(OpenImageR)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -89,7 +90,7 @@ ui <- fluidPage(
                                 image_format: 'jpeg',
                                 jpeg_quality: 100,
                                 force_flash: false,
-                                flip_horiz: true,
+                                flip_horiz: false,
                                 fps: 45
                                 });
                                 Webcam.attach( '#my_camera' );
@@ -178,8 +179,8 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    #imagefile <- observeEvent(input$submit,input$image)
-   savepath <- "/raid/home/zhangludan/image_collection"
-   #savepath <- "/Users/ludanzhang/Dropbox/P&G/image_collection"
+   #savepath <- "/raid/home/zhangludan/image_collection"
+   savepath <- "D:/BROWN/dropbox/Dropbox (Brown)/P&G/image_collection"
    table <- read.csv("image_info.csv")[,-1]
    
    #output$teethimage <- renderImage({
@@ -192,7 +193,7 @@ server <- function(input, output) {
    output$save <- renderTable({
    info_table <- data.frame(info(),stringsAsFactors = F)
    names(info_table) <- c("name","age","sex","email","accept.score.or.not","try.product.or.not","agree.or.not")
-   imagename <- paste0(info_table$name," ",Sys.time())
+   imagename <- paste0(info_table$name," ",gsub("\\:",".", Sys.time()))
    info_table$image.name <- imagename
    info_table$sex[which(info_table$sex == "1")] <- "male"
    info_table$sex[which(info_table$sex == "2")] <- "female"
@@ -207,6 +208,18 @@ server <- function(input, output) {
    write.csv(table,"image_info.csv")
    #write.csv(table,"image_info1.csv")
  
+   #cut the images
+   #the blue frame district was H121:180, W119:202. Cut a slightly larger picture. H110:190, W110:220
+   img1 <- readImage(input$image1$datapath)
+   img1_cut <- img1[121:180,119:202,1:3]
+   writeImage(img1_cut, paste0(savepath,"/",imagename,"_cut1.jpg"))
+   img2 <- readImage(input$image2$datapath)
+   img2_cut <- img2[121:180,119:202,1:3]
+   writeImage(img2_cut, paste0(savepath,"/",imagename,"_cut2.jpg"))
+   img3 <- readImage(input$image3$datapath)
+   img3_cut <- img3[121:180,119:202,1:3]
+   writeImage(img3_cut, paste0(savepath,"/",imagename,"_cut3.jpg"))
+   #save the original images
    file.copy(input$image1$datapath,paste0(savepath,"/",imagename,"_1.jpg"))
    file.copy(input$image2$datapath,paste0(savepath,"/",imagename,"_2.jpg"))
    file.copy(input$image3$datapath,paste0(savepath,"/",imagename,"_3.jpg"))
